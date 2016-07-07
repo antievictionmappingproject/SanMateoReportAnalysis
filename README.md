@@ -6,3 +6,8 @@ This repository contains R analysis scripts and results for the San Mateo evicti
 
 - `outputs/frequency_summaries/` contains frequency and percentage summaries for various columns in the dataset where this sort of analysis makes sense.
 - `figs/` contains figures visualizing some of the frequency relationships after running `R/analysis_and_figures.R`.
+
+# Requirements to run
+
+- R version >=3, gdata package
+- Create a top-level directory with the csv file in it called `data/` and a top-level empty directory to hold figures called `figs/`.
