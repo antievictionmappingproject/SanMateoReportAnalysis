@@ -49,6 +49,30 @@ barplot(rev(race_freq_simplified), horiz = T, cex.names=0.8,
         col = cm.colors(length(race_freq_simplified)))
 
 
+# compare the race frequency to the population average using ACS data
+source('R/extract_demog_acs_data.R')
+simplified_race_stats_ACS <- extract_simplified_race_ACS()
+race_pct_simplified <- 100 * freq2pct(race_freq_simplified)
+
+order_by_name <- function(x) { x[order(names(x))] }
+simplified_race_stats_ACS <- order_by_name(simplified_race_stats_ACS)
+race_pct_simplified <- order_by_name(race_pct_simplified)
+
+# remove unknown/alaska native
+race_pct_simplified <- race_pct_simplified[names(race_pct_simplified) != "Unknown"]
+
+
+comparison_tbl <- matrix(c(simplified_race_stats_ACS,race_pct_simplified), 2, length(simplified_race_stats_ACS), byrow=T)
+colnames(comparison_tbl) <- names(race_pct_simplified)
+rownames(comparison_tbl) <- c("Population", "Eviction cases")
+
+par(mar=c(5,15,4,2))
+barplot(comparison_tbl, cex.names=0.8, col = c("red", "blue"), horiz=T,
+        main = "Eviction percentages vs.\n Population percentages (race)",
+        legend = rownames(comparison_tbl), beside=T, args.legend=list(x="bottomright", bty="n"))
+
+write.csv(comparison_tbl, "outputs/race_population_vs_eviction_summary.csv")
+
 
 ## AGE FREQUENCY
 par(mar=c(5,5,4,2))
