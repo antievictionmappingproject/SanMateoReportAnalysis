@@ -1,5 +1,5 @@
 data/*.csv
-data/*.xls
+data/*.xlsx
 *.RHISTORY
 *.png
 *.jpg
